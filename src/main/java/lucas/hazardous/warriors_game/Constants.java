@@ -9,4 +9,8 @@ public class Constants {
 
     public static final String STATIC_FOLDER = "static/";
     public static final String IMG_FOLDER = STATIC_FOLDER + "images/";
+
+    public static final int PLAYER_HEALTH = 200;
+
+    public static final int ATTACK_STRENGTH = 20;
 }

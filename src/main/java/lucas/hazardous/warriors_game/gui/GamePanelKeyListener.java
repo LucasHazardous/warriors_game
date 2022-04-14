@@ -1,20 +1,17 @@
 package lucas.hazardous.warriors_game.gui;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.Main;
-import lucas.hazardous.warriors_game.Player;
 import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GamePanelKeyListener extends KeyAdapter {
-    private Player[] players;
-    private CharacterCharacter player;
+    private CharacterCharacter localPlayer;
 
-    public GamePanelKeyListener(Player[] players) {
-        this.players = players;
-        this.player = (CharacterCharacter) players[0];
+    public GamePanelKeyListener(CharacterCharacter localPlayer) {
+        this.localPlayer = localPlayer;
     }
 
     @Override
@@ -22,38 +19,37 @@ public class GamePanelKeyListener extends KeyAdapter {
         super.keyPressed(e);
         int key = e.getKeyCode();
 
-            if (key == player.leftKey) {
-                player.left();
+            if (key == localPlayer.leftKey) {
+                localPlayer.left();
             }
 
-            if (key == player.rightKey) {
-                player.right();
+            if (key == localPlayer.rightKey) {
+                localPlayer.right();
             }
 
-            if (key == player.upKey) {
-                player.up();
+            if (key == localPlayer.upKey) {
+                localPlayer.up();
             }
 
-            if (key == player.downKey) {
-                player.down();
+            if (key == localPlayer.downKey) {
+                localPlayer.down();
             }
 
-            if (key == player.leftAttackKey) {
-                player.setAttackLeftImage();
+            if (key == localPlayer.leftAttackKey) {
+                localPlayer.setAttackLeftImage();
 
-                attackNeighbourOnLeft(player);
+                attackNeighbourOnLeft(localPlayer);
 
-                changeToBaseImageAfterDelay(player, 200);
+                changeToBaseImageAfterDelay(localPlayer, 200);
             }
 
-            if (key == player.rightAttackKey) {
-                player.setAttackRightImage();
+            if (key == localPlayer.rightAttackKey) {
+                localPlayer.setAttackRightImage();
 
-                attackNeighbourOnRight(player);
+                attackNeighbourOnRight(localPlayer);
 
-                changeToBaseImageAfterDelay(player, 200);
+                changeToBaseImageAfterDelay(localPlayer, 200);
             }
-
     }
 
     private void changeToBaseImageAfterDelay(CharacterCharacter player, int delay) {
@@ -68,14 +64,14 @@ public class GamePanelKeyListener extends KeyAdapter {
     }
 
     private void attackNeighbourOnLeft(CharacterCharacter player) {
-        if (player.getX() - Constants.CHARACTER_IMG_WIDTH == Main.opponentPosition[0]) {
-            System.out.println("attacked opponent");
+        if (player.getX() - Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[0]) {
+            player.attackOpponent();
         }
     }
 
     private void attackNeighbourOnRight(CharacterCharacter player) {
-        if (player.getX() + Constants.CHARACTER_IMG_WIDTH == Main.opponentPosition[1]) {
-            System.out.println("attacked opponent");
+        if (player.getX() + Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[1]) {
+            player.attackOpponent();
         }
     }
 }

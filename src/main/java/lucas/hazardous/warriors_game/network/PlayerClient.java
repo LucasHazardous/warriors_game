@@ -1,4 +1,4 @@
-package lucas.hazardous.warriors_game;
+package lucas.hazardous.warriors_game.network;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,21 +10,6 @@ public class PlayerClient {
     private Socket mainSocket;
     private PrintWriter socketOut;
     private BufferedReader socketIn;
-
-    public PlayerClient(Socket socket) {
-        try {
-            mainSocket = socket;
-
-            socketOut =
-                    new PrintWriter(mainSocket.getOutputStream(), true);
-
-            socketIn =
-                    new BufferedReader(
-                            new InputStreamReader(mainSocket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public PlayerClient(String hostName, int portNumber) {
         try {
@@ -51,7 +36,7 @@ public class PlayerClient {
         mainSocket.close();
     }
 
-    public void sendData(String data) {
-        socketOut.println(data);
+    public void sendData(int x, int y, int damage, int health) {
+        socketOut.println(x + " " + y + " " + damage + " " + health);
     }
 }

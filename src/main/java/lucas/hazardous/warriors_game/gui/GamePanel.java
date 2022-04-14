@@ -2,6 +2,7 @@ package lucas.hazardous.warriors_game.gui;
 
 import lucas.hazardous.warriors_game.Player;
 import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +13,14 @@ public class GamePanel extends JPanel implements ActionListener {
     private Player[] players;
     private static final int TIMER_DELAY = 100;
     private Timer timer;
+    private CharacterCharacter localPlayer;
 
     public GamePanel(CharacterCharacter localPlayer, Player onlinePlayer) {
         this.players = new Player[]{localPlayer, onlinePlayer};
+        this.localPlayer = localPlayer;
 
         setFocusable(true);
-        addKeyListener(new GamePanelKeyListener(players));
+        addKeyListener(new GamePanelKeyListener(localPlayer));
 
         timer = new Timer(TIMER_DELAY, this);
         timer.start();
@@ -32,7 +35,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             drawPlayerHealthAmount(g, player);
 
-            drawPlayerManaAmount(g, player);
+            drawPlayerName(g, player);
         }
     }
 
@@ -41,15 +44,20 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void drawPlayerHealthAmount(Graphics g, Player player) {
-        g.drawString("" + player.getHealthPoints(), player.getX(), player.getY() + 12);
+        g.drawString(String.valueOf(player.getHealthPoints()), player.getX(), player.getY() + 12);
     }
 
-    private void drawPlayerManaAmount(Graphics g, Player player) {
-        g.drawString("0", player.getX(), player.getY() + 26);
+    private void drawPlayerName(Graphics g, Player player) {
+        g.drawString(player.getName(), player.getX(), player.getY() + 26);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(OnlineDataTransfer.damageDelivered != 0) {
+            localPlayer.reduceHealth(OnlineDataTransfer.damageDelivered);
+            OnlineDataTransfer.damageDelivered = 0;
+        }
+
         repaint();
     }
 }

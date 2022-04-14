@@ -1,4 +1,8 @@
-package lucas.hazardous.warriors_game;
+package lucas.hazardous.warriors_game.characters;
+
+import lucas.hazardous.warriors_game.Constants;
+import lucas.hazardous.warriors_game.Player;
+import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,12 +12,12 @@ public class OnlineWarrior implements Player {
 
     @Override
     public int getX() {
-        return Main.opponentPosition[0];
+        return OnlineDataTransfer.onlineOpponentPosition[0];
     }
 
     @Override
     public int getY() {
-        return Main.opponentPosition[1];
+        return OnlineDataTransfer.onlineOpponentPosition[1];
     }
 
     @Override
@@ -28,6 +32,6 @@ public class OnlineWarrior implements Player {
 
     @Override
     public int getHealthPoints() {
-        return 100;
+        return OnlineDataTransfer.onlinePlayerHealth;
     }
 }

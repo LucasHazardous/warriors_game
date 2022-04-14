@@ -1,7 +1,7 @@
 package lucas.hazardous.warriors_game.characters.implementations;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.PlayerClient;
+import lucas.hazardous.warriors_game.network.PlayerClient;
 import lucas.hazardous.warriors_game.characters.AttackType;
 import lucas.hazardous.warriors_game.characters.CharacterCharacter;
 
@@ -10,8 +10,6 @@ public class Warrior extends CharacterCharacter {
         super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey, playerClient);
 
         this.setAttackType(AttackType.PHYSICAL);
-        this.setMaxHealthPoints(1000);
-        this.setManaPoints(200);
 
         this.playerClass = "warrior";
         this.uploadImage();
@@ -41,11 +39,4 @@ public class Warrior extends CharacterCharacter {
         int newPositionY = this.getY() < Constants.MAX_RIGHT_POSITION ? this.getY() + Constants.CHARACTER_IMG_HEIGHT : Constants.MAX_RIGHT_POSITION;
         tryChangePosition(getX(), newPositionY);
     }
-    public void leftAttack() {
-
-    }
-    public void rightAttack() {
-
-    }
-
 }

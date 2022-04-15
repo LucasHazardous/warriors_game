@@ -1,20 +1,21 @@
 package lucas.hazardous.warriors_game.characters;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.Player;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 import lucas.hazardous.warriors_game.network.PlayerClient;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class CharacterCharacter implements CharacterBase, Player {
-    private int healthPoints = 200;
+public abstract class CharacterCharacter implements Player {
+    private int healthPoints = Constants.PLAYER_HEALTH;
     private AttackType attackType;
-    private int attackAmount;
     protected String name, playerClass;
-    private int maxHealthPoints;
+    private int maxHealthPoints = Constants.PLAYER_HEALTH;
     public int leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey;
+
+    private Image image, baseImage, attackLeftImage, attackRightImage;
+    private int x, y;
 
     private PlayerClient playerClient;
 
@@ -29,8 +30,6 @@ public abstract class CharacterCharacter implements CharacterBase, Player {
         this.leftAttackKey = leftAttackKey;
         this.rightAttackKey = rightAttackKey;
         this.rightKey = rightKey;
-
-        setMaxHealthPoints(Constants.PLAYER_HEALTH);
     }
 
     public void setHealthPoints(int healthPoints) {
@@ -48,18 +47,6 @@ public abstract class CharacterCharacter implements CharacterBase, Player {
         this.attackType = attackType;
     }
 
-    public void setAttackAmount(int attackAmount) {
-        this.attackAmount = attackAmount;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setMaxHealthPoints(int maxHealthPoints) {
-        this.maxHealthPoints = maxHealthPoints;
-    }
-
     public int getHealthPoints() {
         return healthPoints;
     }
@@ -68,45 +55,8 @@ public abstract class CharacterCharacter implements CharacterBase, Player {
         return attackType;
     }
 
-    public int getAttackAmount() {
-        return attackAmount;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public int getMaxHealthPoints() {
-        return maxHealthPoints;
-    }
-
-    public void attack(CharacterCharacter attackedPlayer) {
-        attackedPlayer.reduceHealth(this.attackAmount);
-    }
-
-    @Override
-    public void loseHealth(int amount) {
-        setHealthPoints(this.getMaxHealthPoints() - amount);
-    }
-
-    @Override
-    public void info() {
-        System.out.println("Name: " + this.name + "\nCurrentHP: " + this.healthPoints);
-    }
-
-    private Image image, baseImage, attackLeftImage, attackRightImage;
-    private int x, y;
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Image getImage() {

@@ -1,7 +1,7 @@
 package lucas.hazardous.warriors_game;
 
 import lucas.hazardous.warriors_game.characters.CharacterCharacter;
-import lucas.hazardous.warriors_game.characters.OnlineWarrior;
+import lucas.hazardous.warriors_game.characters.implementations.OnlineWarrior;
 import lucas.hazardous.warriors_game.characters.implementations.Warrior;
 import lucas.hazardous.warriors_game.gui.MainWindow;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;

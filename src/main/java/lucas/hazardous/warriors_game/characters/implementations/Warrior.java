@@ -13,7 +13,6 @@ public class Warrior extends CharacterCharacter {
 
         this.playerClass = "warrior";
         this.uploadImage();
-        this.setAttackAmount(100);
     }
 
     @Override

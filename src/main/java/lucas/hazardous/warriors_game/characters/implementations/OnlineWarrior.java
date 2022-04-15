@@ -1,7 +1,7 @@
-package lucas.hazardous.warriors_game.characters;
+package lucas.hazardous.warriors_game.characters.implementations;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.Player;
+import lucas.hazardous.warriors_game.characters.Player;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;

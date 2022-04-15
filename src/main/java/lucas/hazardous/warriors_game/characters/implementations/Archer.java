@@ -12,8 +12,8 @@ public class Archer  extends CharacterCharacter {
         this.setAttackType(AttackType.PHYSICAL_RANGED);
         this.playerClass = "archer";
         this.uploadImage();
-        this.setAttackAmount(70);
     }
+
     @Override
     public void left() {
         int newPositionX = this.getX() >= Constants.CHARACTER_IMG_WIDTH ? this.getX() - Constants.CHARACTER_IMG_WIDTH : Constants.MAX_RIGHT_POSITION;

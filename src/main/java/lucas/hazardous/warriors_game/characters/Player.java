@@ -1,4 +1,4 @@
-package lucas.hazardous.warriors_game;
+package lucas.hazardous.warriors_game.characters;
 
 import java.awt.*;
 

@@ -6,20 +6,21 @@ import lucas.hazardous.warriors_game.network.PlayerClient;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
-public abstract class CharacterCharacter implements Player {
+public abstract class LocalPlayer implements Player {
     private int healthPoints = Constants.PLAYER_HEALTH;
     private AttackType attackType;
     protected String name, playerClass;
-    private int maxHealthPoints = Constants.PLAYER_HEALTH;
+    private final int maxHealthPoints = Constants.PLAYER_HEALTH;
     public int leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey;
 
     private Image image, baseImage, attackLeftImage, attackRightImage;
     private int x, y;
 
-    private PlayerClient playerClient;
+    private final PlayerClient playerClient;
 
-    public CharacterCharacter(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, PlayerClient playerClient) {
+    public LocalPlayer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, PlayerClient playerClient) {
         this.playerClient = playerClient;
         this.name = name;
         this.x = x;
@@ -75,7 +76,7 @@ public abstract class CharacterCharacter implements Player {
         return y;
     }
 
-    public void uploadImage() {
+    public void setAttackImages() {
         String baseImage = Constants.IMG_FOLDER + this.playerClass + "/base.png";
         String attackLeftImage = Constants.IMG_FOLDER + this.playerClass + "/left.png";
         String attackRightImage = Constants.IMG_FOLDER + this.playerClass + "/right.png";
@@ -124,5 +125,10 @@ public abstract class CharacterCharacter implements Player {
 
     public void attackOpponent() {
         playerClient.sendGameData(getX(), getY(), Constants.ATTACK_STRENGTH, getHealthPoints());
+    }
+
+    public void terminateConnection() throws IOException {
+        playerClient.sendEndGameData();
+        playerClient.close();
     }
 }

@@ -40,6 +40,10 @@ public class PlayerClient {
         socketOut.println(x + " " + y + " " + damage + " " + health);
     }
 
+    public void sendEndGameData() {
+        socketOut.println("\n");
+    }
+
     public void sendInitializationData(String nickname, int health) {
         socketOut.println(nickname + " " + health);
     }

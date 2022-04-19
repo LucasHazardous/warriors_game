@@ -1,6 +1,6 @@
 package lucas.hazardous.warriors_game;
 
-import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.characters.LocalPlayer;
 import lucas.hazardous.warriors_game.characters.implementations.OnlineWarrior;
 import lucas.hazardous.warriors_game.characters.implementations.Warrior;
 import lucas.hazardous.warriors_game.gui.MainWindow;
@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         OnlineDataTransfer onlineDataTransfer = new OnlineDataTransfer();
 
-        CharacterCharacter localPlayer = new Warrior("CurrentPlayer", 0, 0, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E, onlineDataTransfer.getPlayerClient());
+        LocalPlayer localPlayer = new Warrior("CurrentPlayer", 0, 0, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E, onlineDataTransfer.getPlayerClient());
 
         OnlineWarrior onlinePlayer = new OnlineWarrior();
 

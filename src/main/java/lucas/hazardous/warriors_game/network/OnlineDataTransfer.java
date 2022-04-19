@@ -8,7 +8,8 @@ import java.util.Properties;
 
 public class OnlineDataTransfer {
     private Properties connectionProperties;
-    private PlayerClient playerClient;
+    private final PlayerClient playerClient;
+
     public static int[] onlineOpponentPosition = new int[2];
     public static int damageDelivered = 0;
     public static int onlinePlayerHealth = 1;

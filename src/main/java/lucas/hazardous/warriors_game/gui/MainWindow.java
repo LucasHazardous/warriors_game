@@ -1,29 +1,29 @@
 package lucas.hazardous.warriors_game.gui;
 
 import lucas.hazardous.warriors_game.characters.Player;
-import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.characters.LocalPlayer;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
 import java.io.IOException;
 
 public class MainWindow extends JFrame {
-    private CharacterCharacter localPlayer;
-    private Player onlinePlayer;
+    private final LocalPlayer localPlayer;
+    private final Player onlinePlayer;
     private Thread onlineConnectionThread;
-    private OnlineDataTransfer onlineDataTransfer;
+    private final OnlineDataTransfer onlineDataTransfer;
 
-    public MainWindow(int width, int height, CharacterCharacter localPlayer, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
+    public MainWindow(int width, int height, LocalPlayer localPlayer, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.localPlayer = localPlayer;
         this.onlinePlayer = onlinePlayer;
         this.onlineDataTransfer = onlineDataTransfer;
-        this.onlineConnectionThread = onlineDataTransfer.createOnlineDataTransfer();
 
         setSize(width, height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         add(new MenuPanel(this));
         setVisible(true);
+        setFocusable(true);
     }
 
     protected void setLocalPlayerNickname(String nickname) {
@@ -43,9 +43,14 @@ public class MainWindow extends JFrame {
     }
 
     protected void startOnlineGame() {
+        loadNewOnlineConnectionThread();
         onlineConnectionThread.start();
         resetDamageDelivered();
         changeToGamePanel();
+    }
+
+    private void loadNewOnlineConnectionThread() {
+        this.onlineConnectionThread = onlineDataTransfer.createOnlineDataTransfer();
     }
 
     private void resetDamageDelivered() {
@@ -55,12 +60,27 @@ public class MainWindow extends JFrame {
     private void changeToGamePanel() {
         getContentPane().removeAll();
 
-        GamePanel gamePanel = new GamePanel(localPlayer, onlinePlayer);
+        GamePanel gamePanel = new GamePanel(localPlayer, onlinePlayer, this);
         add(gamePanel);
 
-        this.setFocusable(true);
-        this.revalidate();
-        this.repaint();
+        revalidateRepaint();
+
         gamePanel.requestFocus(false);
+    }
+
+    protected void changeGameToMainMenu() {
+        getContentPane().removeAll();
+        add(new MenuPanel(this));
+
+        revalidateRepaint();
+    }
+
+    private void revalidateRepaint() {
+        revalidate();
+        repaint();
+    }
+
+    public void stopOnlineThread() {
+        onlineConnectionThread.interrupt();
     }
 }

@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class OnlineWarrior implements Player {
-    private Image image = new ImageIcon(Constants.IMG_FOLDER + "archer/base.png").getImage();
+    private final Image image = new ImageIcon(Constants.IMG_FOLDER + "archer/base.png").getImage();
 
     @Override
     public int getX() {

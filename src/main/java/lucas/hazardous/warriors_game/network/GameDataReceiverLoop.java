@@ -4,17 +4,18 @@ import java.io.IOException;
 
 import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.*;
 
-public class GameDataReceiverLoop implements Runnable {
-    private PlayerClient playerClient;
-    public GameDataReceiverLoop(PlayerClient playerClient) {
-        this.playerClient = playerClient;
-    }
+public record GameDataReceiverLoop(
+        PlayerClient playerClient) implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
+        while (true) {
             try {
                 String[] receivedData = playerClient.readData().split(" ");
+
+                if (receivedData[0] == "")
+                    break;
+
                 onlineOpponentPosition[0] = Integer.parseInt(receivedData[0]);
                 onlineOpponentPosition[1] = Integer.parseInt(receivedData[1]);
                 damageDelivered = Integer.parseInt(receivedData[2]);

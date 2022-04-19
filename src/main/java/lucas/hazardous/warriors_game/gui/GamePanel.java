@@ -1,24 +1,27 @@
 package lucas.hazardous.warriors_game.gui;
 
 import lucas.hazardous.warriors_game.characters.Player;
-import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.characters.LocalPlayer;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import static lucas.hazardous.warriors_game.Constants.TIMER_DELAY;
 
 public class GamePanel extends JPanel implements ActionListener {
-    private Player[] players;
-    private Timer timer;
-    private CharacterCharacter localPlayer;
+    private final Player[] players;
+    private final Timer timer;
+    private final LocalPlayer localPlayer;
+    private final MainWindow mainWindow;
 
-    public GamePanel(CharacterCharacter localPlayer, Player onlinePlayer) {
+    public GamePanel(LocalPlayer localPlayer, Player onlinePlayer, MainWindow mainWindow) {
         this.players = new Player[]{localPlayer, onlinePlayer};
         this.localPlayer = localPlayer;
+        this.mainWindow = mainWindow;
 
         setFocusable(true);
         addKeyListener(new GamePanelKeyListener(localPlayer));
@@ -54,11 +57,29 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        reduceLocalPlayerHealth();
+
+        endGameIfSomeoneDied();
+
+        repaint();
+    }
+
+    private void reduceLocalPlayerHealth() {
         if(OnlineDataTransfer.damageDelivered != 0) {
             localPlayer.reduceHealth(OnlineDataTransfer.damageDelivered);
             OnlineDataTransfer.damageDelivered = 0;
         }
+    }
 
-        repaint();
+    private void endGameIfSomeoneDied() {
+        if(localPlayer.getHealthPoints() == 0 || OnlineDataTransfer.onlinePlayerHealth == 0) {
+            try {
+                localPlayer.terminateConnection();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            mainWindow.stopOnlineThread();
+            mainWindow.changeGameToMainMenu();
+        }
     }
 }

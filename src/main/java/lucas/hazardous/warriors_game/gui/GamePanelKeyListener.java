@@ -1,16 +1,16 @@
 package lucas.hazardous.warriors_game.gui;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.characters.CharacterCharacter;
+import lucas.hazardous.warriors_game.characters.LocalPlayer;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GamePanelKeyListener extends KeyAdapter {
-    private CharacterCharacter localPlayer;
+    private final LocalPlayer localPlayer;
 
-    public GamePanelKeyListener(CharacterCharacter localPlayer) {
+    public GamePanelKeyListener(LocalPlayer localPlayer) {
         this.localPlayer = localPlayer;
     }
 
@@ -52,7 +52,7 @@ public class GamePanelKeyListener extends KeyAdapter {
             }
     }
 
-    private void changeToBaseImageAfterDelay(CharacterCharacter player, int delay) {
+    private void changeToBaseImageAfterDelay(LocalPlayer player, int delay) {
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -63,13 +63,13 @@ public class GamePanelKeyListener extends KeyAdapter {
         );
     }
 
-    private void attackNeighbourOnLeft(CharacterCharacter player) {
+    private void attackNeighbourOnLeft(LocalPlayer player) {
         if (player.getX() - Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[0]) {
             player.attackOpponent();
         }
     }
 
-    private void attackNeighbourOnRight(CharacterCharacter player) {
+    private void attackNeighbourOnRight(LocalPlayer player) {
         if (player.getX() + Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[0]) {
             player.attackOpponent();
         }

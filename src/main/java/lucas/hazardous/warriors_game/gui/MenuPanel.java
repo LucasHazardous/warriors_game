@@ -29,8 +29,11 @@ public class MenuPanel extends JPanel implements ActionListener {
         playButton.addActionListener(e -> {
             timer.start();
 
-            mainWindow.sendInitializationData(nicknameField.getText());
+            String playerNickname = nicknameField.getText();
             nicknameField.setEditable(false);
+
+            mainWindow.setLocalPlayerNickname(playerNickname);
+            mainWindow.sendInitializationData(playerNickname);
 
             mainWindow.receiveOnlineData();
         });

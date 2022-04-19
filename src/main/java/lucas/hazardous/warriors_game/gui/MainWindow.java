@@ -26,6 +26,10 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
+    protected void setLocalPlayerNickname(String nickname) {
+        localPlayer.setName(nickname);
+    }
+
     protected void sendInitializationData(String nickname) {
         onlineDataTransfer.sendInitializationData(nickname);
     }

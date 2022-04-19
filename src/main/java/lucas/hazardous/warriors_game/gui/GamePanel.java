@@ -9,9 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static lucas.hazardous.warriors_game.Constants.TIMER_DELAY;
+
 public class GamePanel extends JPanel implements ActionListener {
     private Player[] players;
-    private static final int TIMER_DELAY = 100;
     private Timer timer;
     private CharacterCharacter localPlayer;
 

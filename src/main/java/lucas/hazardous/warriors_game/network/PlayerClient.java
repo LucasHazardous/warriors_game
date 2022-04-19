@@ -36,7 +36,11 @@ public class PlayerClient {
         mainSocket.close();
     }
 
-    public void sendData(int x, int y, int damage, int health) {
+    public void sendGameData(int x, int y, int damage, int health) {
         socketOut.println(x + " " + y + " " + damage + " " + health);
+    }
+
+    public void sendInitializationData(String nickname, int health) {
+        socketOut.println(nickname + " " + health);
     }
 }

@@ -107,7 +107,7 @@ public abstract class CharacterCharacter implements Player {
         if (OnlineDataTransfer.onlineOpponentPosition[0] != newX || OnlineDataTransfer.onlineOpponentPosition[1] != newY) {
             this.x = newX;
             this.y = newY;
-            playerClient.sendData(newX, newY, 0, getHealthPoints());
+            playerClient.sendGameData(newX, newY, 0, getHealthPoints());
         } else {
             reduceHealth(50);
         }
@@ -115,10 +115,10 @@ public abstract class CharacterCharacter implements Player {
 
     public void reduceHealth(int amount) {
         setHealthPoints(this.healthPoints - amount);
-        playerClient.sendData(getX(), getY(), 0, getHealthPoints());
+        playerClient.sendGameData(getX(), getY(), 0, getHealthPoints());
     }
 
     public void attackOpponent() {
-        playerClient.sendData(getX(), getY(), Constants.ATTACK_STRENGTH, getHealthPoints());
+        playerClient.sendGameData(getX(), getY(), Constants.ATTACK_STRENGTH, getHealthPoints());
     }
 }

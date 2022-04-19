@@ -22,7 +22,7 @@ public class OnlineWarrior implements Player {
 
     @Override
     public String getName() {
-        return "online";
+        return OnlineDataTransfer.nickname;
     }
 
     @Override

@@ -13,4 +13,6 @@ public class Constants {
     public static final int PLAYER_HEALTH = 200;
 
     public static final int ATTACK_STRENGTH = 20;
+
+    public static final int TIMER_DELAY = 100;
 }

@@ -1,24 +1,23 @@
 package lucas.hazardous.warriors_game.gui;
 
-import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.characters.Player;
 import lucas.hazardous.warriors_game.characters.CharacterCharacter;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
     private CharacterCharacter localPlayer;
     private Player onlinePlayer;
-    private OnlineDataTransfer onlineDataTransfer;
     private Thread onlineConnectionThread;
+    private OnlineDataTransfer onlineDataTransfer;
 
     public MainWindow(int width, int height, CharacterCharacter localPlayer, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.localPlayer = localPlayer;
         this.onlinePlayer = onlinePlayer;
         this.onlineDataTransfer = onlineDataTransfer;
         this.onlineConnectionThread = onlineDataTransfer.createOnlineDataTransfer();
-        onlineConnectionThread.start();
 
         setSize(width, height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,16 +26,29 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    protected void startOnlineGame() {
-        onlineDataTransfer.sendInitializationData();
+    protected void sendInitializationData(String nickname) {
+        onlineDataTransfer.sendInitializationData(nickname);
+    }
 
-        if(OnlineDataTransfer.onlinePlayerHealth == Constants.PLAYER_HEALTH) {
-            OnlineDataTransfer.damageDelivered = 0;
-            addGamePanel();
+    protected void receiveOnlineData() {
+        try {
+            onlineDataTransfer.loadOpponentInitData();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void addGamePanel() {
+    protected void startOnlineGame() {
+        onlineConnectionThread.start();
+        resetDamageDelivered();
+        changeToGamePanel();
+    }
+
+    private void resetDamageDelivered() {
+        OnlineDataTransfer.damageDelivered = 0;
+    }
+
+    private void changeToGamePanel() {
         getContentPane().removeAll();
 
         GamePanel gamePanel = new GamePanel(localPlayer, onlinePlayer);

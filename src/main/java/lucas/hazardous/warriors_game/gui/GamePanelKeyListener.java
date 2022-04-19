@@ -70,7 +70,7 @@ public class GamePanelKeyListener extends KeyAdapter {
     }
 
     private void attackNeighbourOnRight(CharacterCharacter player) {
-        if (player.getX() + Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[1]) {
+        if (player.getX() + Constants.CHARACTER_IMG_WIDTH == OnlineDataTransfer.onlineOpponentPosition[0]) {
             player.attackOpponent();
         }
     }

@@ -78,7 +78,6 @@ public class MainWindow extends JFrame {
 
     public void resetConnectionClient() throws IOException {
         onlineDataTransfer.terminateConnection();
-        onlineDataTransfer.loadNewPlayerClient();
     }
 
     public void showConnectionWarning() {

@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class OnlineDataTransfer {
-    private Properties connectionProperties;
     public static PlayerClient playerClient;
+
+    private static String hostname;
+    private static int port;
 
     public static int[] onlineOpponentPosition = new int[2];
     public static int damageDelivered = 0;
@@ -21,16 +23,27 @@ public class OnlineDataTransfer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        loadNewPlayerClient();
-    }
-
-    public void loadNewPlayerClient() {
-        playerClient = new PlayerClient(connectionProperties.getProperty("host"), Integer.parseInt(connectionProperties.getProperty("port")));
     }
 
     private void loadConnectionProperties() throws IOException {
-        connectionProperties = new Properties();
+        Properties connectionProperties = new Properties();
         connectionProperties.load(new FileInputStream("connection.properties"));
+
+        hostname = connectionProperties.getProperty("host");
+        port = Integer.parseInt(connectionProperties.getProperty("port"));
+    }
+
+    public static void loadNewPlayerClient() {
+        reloadOnlineVariables();
+
+        playerClient = new PlayerClient(hostname, port);
+    }
+
+    private static void reloadOnlineVariables() {
+        onlineOpponentPosition = new int[2];
+        damageDelivered = 0;
+        onlinePlayerHealth = 1;
+        nickname = "";
     }
 
     public void sendInitializationData(String nickname) {
@@ -43,6 +56,7 @@ public class OnlineDataTransfer {
 
     public void loadOpponentInitData() throws IOException {
         String[] receivedInitData = playerClient.readData().split(" ");
+
         nickname = receivedInitData[0];
         onlinePlayerHealth = Integer.parseInt(receivedInitData[1]);
     }

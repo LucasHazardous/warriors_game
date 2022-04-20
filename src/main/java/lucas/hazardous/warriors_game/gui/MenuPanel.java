@@ -18,6 +18,8 @@ public class MenuPanel extends JPanel implements ActionListener {
     public MenuPanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.timer = new Timer(TIMER_DELAY, this);
+        OnlineDataTransfer.loadNewPlayerClient();
+
         setFocusable(true);
 
         addPlayButton();

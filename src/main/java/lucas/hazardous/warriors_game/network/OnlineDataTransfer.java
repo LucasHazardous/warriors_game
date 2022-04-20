@@ -14,7 +14,7 @@ public class OnlineDataTransfer {
 
     public static int[] onlineOpponentPosition = new int[2];
     public static int damageDelivered = 0;
-    public static int onlinePlayerHealth = 1;
+    public static int onlinePlayerHealth = Constants.PLAYER_HEALTH;
     public static String nickname;
 
     public OnlineDataTransfer() {
@@ -42,12 +42,12 @@ public class OnlineDataTransfer {
     private static void reloadOnlineVariables() {
         onlineOpponentPosition = new int[2];
         damageDelivered = 0;
-        onlinePlayerHealth = 1;
+        onlinePlayerHealth = Constants.PLAYER_HEALTH;
         nickname = "";
     }
 
     public void sendInitializationData(String nickname) {
-        playerClient.sendInitializationData(nickname, Constants.PLAYER_HEALTH);
+        playerClient.sendInitializationData(nickname);
     }
 
     public Thread createOnlineDataTransfer() {
@@ -55,10 +55,9 @@ public class OnlineDataTransfer {
     }
 
     public void loadOpponentInitData() throws IOException {
-        String[] receivedInitData = playerClient.readData().split(" ");
+        String receivedInitData = playerClient.readData();
 
-        nickname = receivedInitData[0];
-        onlinePlayerHealth = Integer.parseInt(receivedInitData[1]);
+        nickname = receivedInitData;
     }
 
     public void terminateConnection() throws IOException {

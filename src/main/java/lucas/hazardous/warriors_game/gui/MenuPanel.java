@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
+import java.util.Random;
 
 import static lucas.hazardous.warriors_game.Constants.TIMER_DELAY;
 
@@ -32,8 +33,13 @@ public class MenuPanel extends JPanel implements ActionListener {
         playButton.addActionListener(e -> {
             timer.start();
 
+            mainWindow.generateLocalPlayer();
+
             String playerNickname = nicknameField.getText();
             nicknameField.setEditable(false);
+
+            if(playerNickname.equals(""))
+                playerNickname = String.valueOf(new Random().nextFloat());
 
             mainWindow.setLocalPlayerNickname(playerNickname);
             mainWindow.sendInitializationData(playerNickname);

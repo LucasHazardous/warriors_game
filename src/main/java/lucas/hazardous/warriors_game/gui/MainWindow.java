@@ -1,19 +1,22 @@
 package lucas.hazardous.warriors_game.gui;
 
+import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.characters.Player;
 import lucas.hazardous.warriors_game.characters.LocalPlayer;
+import lucas.hazardous.warriors_game.characters.implementations.Warrior;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.Random;
 
 public class MainWindow extends JFrame {
-    private final LocalPlayer localPlayer;
+    private LocalPlayer localPlayer;
     private final Player onlinePlayer;
     private final OnlineDataTransfer onlineDataTransfer;
 
-    public MainWindow(int width, int height, LocalPlayer localPlayer, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
-        this.localPlayer = localPlayer;
+    public MainWindow(int width, int height, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.onlinePlayer = onlinePlayer;
         this.onlineDataTransfer = onlineDataTransfer;
 
@@ -25,12 +28,21 @@ public class MainWindow extends JFrame {
         setFocusable(true);
     }
 
+    public void generateLocalPlayer() {
+        localPlayer = new Warrior("CurrentPlayer", generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
+    }
+
+    private static int generateStartPosition(int rangeBound, int tile) {
+        Random random = new Random();
+        return random.nextInt(rangeBound/tile)*tile;
+    }
+
     protected void setLocalPlayerNickname(String nickname) {
         localPlayer.setName(nickname);
     }
 
     protected void sendInitializationData(String nickname) {
-        onlineDataTransfer.sendInitializationData(nickname);
+        OnlineDataTransfer.playerClient.sendInitializationData(nickname, localPlayer.getX(), localPlayer.getY());
     }
 
     protected void receiveOnlineData() {

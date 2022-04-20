@@ -44,8 +44,8 @@ public class PlayerClient {
         socketOut.println("\n");
     }
 
-    public void sendInitializationData(String nickname) {
-        socketOut.println(nickname);
+    public void sendInitializationData(String nickname, int x, int y) {
+        socketOut.println(nickname + " " + x + " " + y);
     }
 
     public boolean isClosed() {

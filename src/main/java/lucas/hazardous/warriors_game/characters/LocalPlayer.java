@@ -5,22 +5,18 @@ import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.playerClient;
 
 public abstract class LocalPlayer implements Player {
     private int healthPoints = Constants.PLAYER_HEALTH;
-    private AttackType attackType;
     protected String name, playerClass;
-    private final int maxHealthPoints = Constants.PLAYER_HEALTH;
     public int leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey;
 
     private Image image, baseImage, attackLeftImage, attackRightImage;
     private int x, y;
 
-    public LocalPlayer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
-        this.name = name;
+    public LocalPlayer(int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
         this.x = x;
         this.y = y;
         this.leftKey = leftKey;
@@ -32,26 +28,19 @@ public abstract class LocalPlayer implements Player {
     }
 
     public void setHealthPoints(int healthPoints) {
+        int maxHealthPoints = Constants.PLAYER_HEALTH;
         if (healthPoints < 0) {
             this.healthPoints = 0;
-        } else if (healthPoints > this.maxHealthPoints) {
-            this.healthPoints = this.maxHealthPoints;
+        } else if (healthPoints > maxHealthPoints) {
+            this.healthPoints = maxHealthPoints;
         }
         else {
             this.healthPoints = healthPoints;
         }
     }
 
-    public void setAttackType(AttackType attackType) {
-        this.attackType = attackType;
-    }
-
     public int getHealthPoints() {
         return healthPoints;
-    }
-
-    public AttackType getAttackType() {
-        return attackType;
     }
 
     public String getName() {

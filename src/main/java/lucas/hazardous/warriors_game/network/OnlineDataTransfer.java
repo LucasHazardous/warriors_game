@@ -46,18 +46,16 @@ public class OnlineDataTransfer {
         nickname = "";
     }
 
-    public void sendInitializationData(String nickname) {
-        playerClient.sendInitializationData(nickname);
-    }
-
     public Thread createOnlineDataTransfer() {
         return new Thread(new GameDataReceiverLoop());
     }
 
     public void loadOpponentInitData() throws IOException {
-        String receivedInitData = playerClient.readData();
+        String[] receivedInitData = playerClient.readData().split(" ");
 
-        nickname = receivedInitData;
+        nickname = receivedInitData[0];
+        onlineOpponentPosition[0] = Integer.parseInt(receivedInitData[1]);
+        onlineOpponentPosition[1] = Integer.parseInt(receivedInitData[2]);
     }
 
     public void terminateConnection() throws IOException {

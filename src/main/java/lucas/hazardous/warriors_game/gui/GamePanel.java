@@ -73,12 +73,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private void endGameIfSomeoneDied() {
         if(localPlayer.getHealthPoints() == 0 || OnlineDataTransfer.onlinePlayerHealth == 0) {
+            timer.stop();
             try {
-                localPlayer.terminateConnection();
+                mainWindow.resetConnectionClient();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                mainWindow.showConnectionWarning();
             }
-            mainWindow.stopOnlineThread();
             mainWindow.changeGameToMainMenu();
         }
     }

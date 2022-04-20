@@ -2,11 +2,12 @@ package lucas.hazardous.warriors_game.characters;
 
 import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
-import lucas.hazardous.warriors_game.network.PlayerClient;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+
+import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.playerClient;
 
 public abstract class LocalPlayer implements Player {
     private int healthPoints = Constants.PLAYER_HEALTH;
@@ -18,10 +19,7 @@ public abstract class LocalPlayer implements Player {
     private Image image, baseImage, attackLeftImage, attackRightImage;
     private int x, y;
 
-    private final PlayerClient playerClient;
-
-    public LocalPlayer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, PlayerClient playerClient) {
-        this.playerClient = playerClient;
+    public LocalPlayer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -125,10 +123,5 @@ public abstract class LocalPlayer implements Player {
 
     public void attackOpponent() {
         playerClient.sendGameData(getX(), getY(), Constants.ATTACK_STRENGTH, getHealthPoints());
-    }
-
-    public void terminateConnection() throws IOException {
-        playerClient.sendEndGameData();
-        playerClient.close();
     }
 }

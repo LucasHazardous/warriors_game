@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         OnlineDataTransfer onlineDataTransfer = new OnlineDataTransfer();
 
-        LocalPlayer localPlayer = new Warrior("CurrentPlayer", 0, 0, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E, onlineDataTransfer.getPlayerClient());
+        LocalPlayer localPlayer = new Warrior("CurrentPlayer", 0, 0, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
 
         OnlineWarrior onlinePlayer = new OnlineWarrior();
 

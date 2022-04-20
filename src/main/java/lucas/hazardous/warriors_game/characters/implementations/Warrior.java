@@ -1,13 +1,12 @@
 package lucas.hazardous.warriors_game.characters.implementations;
 
 import lucas.hazardous.warriors_game.Constants;
-import lucas.hazardous.warriors_game.network.PlayerClient;
 import lucas.hazardous.warriors_game.characters.AttackType;
 import lucas.hazardous.warriors_game.characters.LocalPlayer;
 
 public class Warrior extends LocalPlayer {
-   public Warrior(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey, PlayerClient playerClient) {
-        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey, playerClient);
+   public Warrior(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
+        super(name, x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
 
         this.setAttackType(AttackType.PHYSICAL);
 

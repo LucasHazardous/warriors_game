@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class OnlineDataTransfer {
     private Properties connectionProperties;
-    private final PlayerClient playerClient;
+    public static PlayerClient playerClient;
 
     public static int[] onlineOpponentPosition = new int[2];
     public static int damageDelivered = 0;
@@ -21,6 +21,10 @@ public class OnlineDataTransfer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        loadNewPlayerClient();
+    }
+
+    public void loadNewPlayerClient() {
         playerClient = new PlayerClient(connectionProperties.getProperty("host"), Integer.parseInt(connectionProperties.getProperty("port")));
     }
 
@@ -34,7 +38,7 @@ public class OnlineDataTransfer {
     }
 
     public Thread createOnlineDataTransfer() {
-        return new Thread(new GameDataReceiverLoop(playerClient));
+        return new Thread(new GameDataReceiverLoop());
     }
 
     public void loadOpponentInitData() throws IOException {
@@ -43,7 +47,8 @@ public class OnlineDataTransfer {
         onlinePlayerHealth = Integer.parseInt(receivedInitData[1]);
     }
 
-    public PlayerClient getPlayerClient() {
-        return playerClient;
+    public void terminateConnection() throws IOException {
+        playerClient.sendEndGameData();
+        playerClient.close();
     }
 }

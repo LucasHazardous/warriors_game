@@ -10,7 +10,6 @@ import java.io.IOException;
 public class MainWindow extends JFrame {
     private final LocalPlayer localPlayer;
     private final Player onlinePlayer;
-    private Thread onlineConnectionThread;
     private final OnlineDataTransfer onlineDataTransfer;
 
     public MainWindow(int width, int height, LocalPlayer localPlayer, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
@@ -43,14 +42,11 @@ public class MainWindow extends JFrame {
     }
 
     protected void startOnlineGame() {
-        loadNewOnlineConnectionThread();
+        Thread onlineConnectionThread = onlineDataTransfer.createOnlineDataTransfer();
         onlineConnectionThread.start();
+
         resetDamageDelivered();
         changeToGamePanel();
-    }
-
-    private void loadNewOnlineConnectionThread() {
-        this.onlineConnectionThread = onlineDataTransfer.createOnlineDataTransfer();
     }
 
     private void resetDamageDelivered() {
@@ -80,7 +76,12 @@ public class MainWindow extends JFrame {
         repaint();
     }
 
-    public void stopOnlineThread() {
-        onlineConnectionThread.interrupt();
+    public void resetConnectionClient() throws IOException {
+        onlineDataTransfer.terminateConnection();
+        onlineDataTransfer.loadNewPlayerClient();
+    }
+
+    public void showConnectionWarning() {
+        JOptionPane.showMessageDialog(this, "Game was not ended properly.", "Connection ended", JOptionPane.WARNING_MESSAGE);
     }
 }

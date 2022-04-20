@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.*;
 
-public record GameDataReceiverLoop(
-        PlayerClient playerClient) implements Runnable {
+public class GameDataReceiverLoop implements Runnable {
 
     @Override
     public void run() {
+        if(playerClient.isClosed())
+            return;
+
         while (true) {
             try {
                 String[] receivedData = playerClient.readData().split(" ");

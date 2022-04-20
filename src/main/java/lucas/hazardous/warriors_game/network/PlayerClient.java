@@ -47,4 +47,8 @@ public class PlayerClient {
     public void sendInitializationData(String nickname, int health) {
         socketOut.println(nickname + " " + health);
     }
+
+    public boolean isClosed() {
+        return mainSocket.isClosed();
+    }
 }

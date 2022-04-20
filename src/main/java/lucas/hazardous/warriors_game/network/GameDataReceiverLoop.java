@@ -1,6 +1,7 @@
 package lucas.hazardous.warriors_game.network;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.*;
 
@@ -15,7 +16,7 @@ public class GameDataReceiverLoop implements Runnable {
             try {
                 String[] receivedData = playerClient.readData().split(" ");
 
-                if (receivedData[0] == "")
+                if (Objects.equals(receivedData[0], ""))
                     break;
 
                 onlineOpponentPosition[0] = Integer.parseInt(receivedData[0]);

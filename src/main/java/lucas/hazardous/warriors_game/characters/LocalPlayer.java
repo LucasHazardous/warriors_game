@@ -3,8 +3,11 @@ package lucas.hazardous.warriors_game.characters;
 import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 import static lucas.hazardous.warriors_game.network.OnlineDataTransfer.playerClient;
 
@@ -63,16 +66,17 @@ public abstract class LocalPlayer implements Player {
         return y;
     }
 
-    public void setAttackImages() {
-        String baseImage = Constants.IMG_FOLDER + this.playerClass + "/base.png";
-        String attackLeftImage = Constants.IMG_FOLDER + this.playerClass + "/left.png";
-        String attackRightImage = Constants.IMG_FOLDER + this.playerClass + "/right.png";
-
-        this.baseImage = new ImageIcon(baseImage).getImage();
-        this.attackLeftImage = new ImageIcon(attackLeftImage).getImage();
-        this.attackRightImage = new ImageIcon(attackRightImage).getImage();
+    public void setAttackImages() throws IOException {
+        System.out.println(Constants.IMG_FOLDER + this.playerClass + "/base.png");
+        this.baseImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/base.png"));
+        this.attackLeftImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/left.png"));
+        this.attackRightImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/right.png"));
 
         setBaseImage();
+    }
+
+    public InputStream getImagePath(String image) {
+        return Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(image));
     }
 
     public void setBaseImage() {

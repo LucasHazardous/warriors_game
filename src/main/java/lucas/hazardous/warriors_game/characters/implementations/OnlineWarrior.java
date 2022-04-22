@@ -4,11 +4,21 @@ import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.characters.Player;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class OnlineWarrior implements Player {
-    private final Image image = new ImageIcon(Constants.IMG_FOLDER + "archer/base.png").getImage();
+    private Image image;
+
+    {
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(Constants.IMG_FOLDER + "archer/base.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public int getX() {

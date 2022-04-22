@@ -3,12 +3,18 @@ package lucas.hazardous.warriors_game.characters.implementations;
 import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.characters.LocalPlayer;
 
+import java.io.IOException;
+
 public class Archer  extends LocalPlayer {
-    public Archer(String name, int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
+    public Archer(int x, int y, int leftKey, int rightKey, int upKey, int downKey, int leftAttackKey, int rightAttackKey) {
         super(x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
 
         this.playerClass = "archer";
-        this.setAttackImages();
+        try {
+            this.setAttackImages();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -7,8 +7,7 @@ public class Constants {
     public static final int CHARACTER_IMG_HEIGHT = 80;
     public static final int MAX_RIGHT_POSITION = 320;
 
-    public static final String STATIC_FOLDER = "static/";
-    public static final String IMG_FOLDER = STATIC_FOLDER + "images/";
+    public static final String IMG_FOLDER = "images/";
 
     public static final int PLAYER_HEALTH = 200;
 

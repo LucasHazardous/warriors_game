@@ -29,7 +29,7 @@ public class MainWindow extends JFrame {
     }
 
     public void generateLocalPlayer() {
-        localPlayer = new Warrior("CurrentPlayer", generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
+        localPlayer = new Warrior(generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
     }
 
     private static int generateStartPosition(int rangeBound, int tile) {

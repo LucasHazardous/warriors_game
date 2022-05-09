@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static lucas.hazardous.warriors_game.Constants.TIMER_DELAY;
+import static lucas.hazardous.warriors_game.Constants.*;
 
 public class GamePanel extends JPanel implements ActionListener {
     private final Player[] players;
@@ -34,6 +34,24 @@ public class GamePanel extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        drawMap(g);
+
+        drawPlayers(g);
+    }
+
+    private void drawMap(Graphics g) {
+        for(int i = 0; i < WINDOW_WIDTH/CHARACTER_IMG_WIDTH; i++) {
+            for(int j = 0; j < WINDOW_HEIGHT/CHARACTER_IMG_HEIGHT; j++) {
+                if(i%2 == 0 && j % 2 == 0)
+                    g.setColor(Color.gray);
+                else
+                    g.setColor(Color.lightGray);
+                g.fillRect(i*CHARACTER_IMG_WIDTH, j*CHARACTER_IMG_HEIGHT, CHARACTER_IMG_WIDTH, CHARACTER_IMG_HEIGHT);
+            }
+        }
+    }
+
+    private void drawPlayers(Graphics g) {
         for (Player player : players) {
             drawPlayerImage(g, player);
 
@@ -48,10 +66,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void drawPlayerHealthAmount(Graphics g, Player player) {
+        g.setColor(Color.red);
         g.drawString(String.valueOf(player.getHealthPoints()), player.getX(), player.getY() + 12);
     }
 
     private void drawPlayerName(Graphics g, Player player) {
+        g.setColor(Color.cyan);
         g.drawString(player.getName(), player.getX(), player.getY() + 26);
     }
 

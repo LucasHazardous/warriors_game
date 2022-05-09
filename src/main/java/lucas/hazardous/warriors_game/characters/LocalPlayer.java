@@ -67,7 +67,6 @@ public abstract class LocalPlayer implements Player {
     }
 
     public void setAttackImages() throws IOException {
-        System.out.println(Constants.IMG_FOLDER + this.playerClass + "/base.png");
         this.baseImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/base.png"));
         this.attackLeftImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/left.png"));
         this.attackRightImage = ImageIO.read(getImagePath(Constants.IMG_FOLDER + this.playerClass + "/right.png"));

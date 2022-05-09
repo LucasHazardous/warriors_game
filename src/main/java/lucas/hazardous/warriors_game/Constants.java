@@ -10,6 +10,8 @@ public class Constants {
     public static final int CHARACTER_IMG_HEIGHT = 80;
     public static final int MAX_RIGHT_POSITION = 320;
 
+    public static final String WINDOW_TITLE = "Warriors Game";
+
     public static final HashMap<String, Color[]> ARENA_LIST = new HashMap<>();
 
     public static final String IMG_FOLDER = "images/";

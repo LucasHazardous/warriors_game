@@ -15,6 +15,7 @@ public class MainWindow extends JFrame {
     private LocalPlayer localPlayer;
     private final Player onlinePlayer;
     private final OnlineDataTransfer onlineDataTransfer;
+    private String arenaChoice;
 
     public MainWindow(int width, int height, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.onlinePlayer = onlinePlayer;
@@ -26,6 +27,10 @@ public class MainWindow extends JFrame {
         add(new MenuPanel(this));
         setVisible(true);
         setFocusable(true);
+    }
+
+    public void setArenaChoice(String arenaChoice) {
+        this.arenaChoice = arenaChoice;
     }
 
     public void generateLocalPlayer() {
@@ -68,7 +73,7 @@ public class MainWindow extends JFrame {
     private void changeToGamePanel() {
         getContentPane().removeAll();
 
-        GamePanel gamePanel = new GamePanel(localPlayer, onlinePlayer, this);
+        GamePanel gamePanel = new GamePanel(localPlayer, onlinePlayer, this, arenaChoice);
         add(gamePanel);
 
         revalidateRepaint();

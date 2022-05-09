@@ -17,17 +17,28 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Timer timer;
     private final LocalPlayer localPlayer;
     private final MainWindow mainWindow;
+    private String arenaChoice;
+    private Color firstArenaColor;
+    private Color secondArenaColor;
 
-    public GamePanel(LocalPlayer localPlayer, Player onlinePlayer, MainWindow mainWindow) {
+    public GamePanel(LocalPlayer localPlayer, Player onlinePlayer, MainWindow mainWindow, String arenaChoice) {
         this.players = new Player[]{localPlayer, onlinePlayer};
         this.localPlayer = localPlayer;
         this.mainWindow = mainWindow;
+        this.arenaChoice = arenaChoice;
 
         setFocusable(true);
         addKeyListener(new GamePanelKeyListener(localPlayer));
 
+        setArenaColors();
+
         timer = new Timer(TIMER_DELAY, this);
         timer.start();
+    }
+
+    private void setArenaColors() {
+        firstArenaColor = ARENA_LIST.get(arenaChoice)[0];
+        secondArenaColor = ARENA_LIST.get(arenaChoice)[1];
     }
 
     @Override
@@ -42,10 +53,10 @@ public class GamePanel extends JPanel implements ActionListener {
     private void drawMap(Graphics g) {
         for(int i = 0; i < WINDOW_WIDTH/CHARACTER_IMG_WIDTH; i++) {
             for(int j = 0; j < WINDOW_HEIGHT/CHARACTER_IMG_HEIGHT; j++) {
-                if(i%2 == 0 && j % 2 == 0)
-                    g.setColor(Color.gray);
+                if((i%2 == 0 && j % 2 == 1) || (i%2 == 1 && j % 2 == 0))
+                    g.setColor(firstArenaColor);
                 else
-                    g.setColor(Color.lightGray);
+                    g.setColor(secondArenaColor);
                 g.fillRect(i*CHARACTER_IMG_WIDTH, j*CHARACTER_IMG_HEIGHT, CHARACTER_IMG_WIDTH, CHARACTER_IMG_HEIGHT);
             }
         }

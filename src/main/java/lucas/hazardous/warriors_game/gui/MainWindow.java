@@ -7,12 +7,11 @@ import lucas.hazardous.warriors_game.characters.implementations.Warrior;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Random;
 
-import static lucas.hazardous.warriors_game.Constants.WINDOW_TITLE;
+import static lucas.hazardous.warriors_game.Constants.*;
 
 public class MainWindow extends JFrame {
     private LocalPlayer localPlayer;
@@ -20,7 +19,7 @@ public class MainWindow extends JFrame {
     private final OnlineDataTransfer onlineDataTransfer;
     private String arenaChoice;
 
-    public MainWindow(int width, int height, Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
+    public MainWindow(Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.onlinePlayer = onlinePlayer;
         this.onlineDataTransfer = onlineDataTransfer;
 
@@ -30,9 +29,10 @@ public class MainWindow extends JFrame {
         add(new MenuPanel(this));
         setVisible(true);
         setFocusable(true);
-        setSize(width, height);
-        setPreferredSize(new Dimension(width, height));
         setResizable(false);
+
+        setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     }
 
     public void setArenaChoice(String arenaChoice) {

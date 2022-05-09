@@ -10,6 +10,6 @@ public class Main {
 
         OnlineWarrior onlinePlayer = new OnlineWarrior();
 
-        new MainWindow(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, onlinePlayer, onlineDataTransfer);
+        new MainWindow(onlinePlayer, onlineDataTransfer);
     }
 }

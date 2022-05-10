@@ -3,6 +3,7 @@ package lucas.hazardous.warriors_game.gui;
 import lucas.hazardous.warriors_game.Constants;
 import lucas.hazardous.warriors_game.characters.Player;
 import lucas.hazardous.warriors_game.characters.LocalPlayer;
+import lucas.hazardous.warriors_game.characters.implementations.Archer;
 import lucas.hazardous.warriors_game.characters.implementations.Warrior;
 import lucas.hazardous.warriors_game.network.OnlineDataTransfer;
 
@@ -18,6 +19,7 @@ public class MainWindow extends JFrame {
     private final Player onlinePlayer;
     private final OnlineDataTransfer onlineDataTransfer;
     private String arenaChoice;
+    private String heroChoice;
 
     public MainWindow(Player onlinePlayer, OnlineDataTransfer onlineDataTransfer) {
         this.onlinePlayer = onlinePlayer;
@@ -39,8 +41,21 @@ public class MainWindow extends JFrame {
         this.arenaChoice = arenaChoice;
     }
 
+    public void setHeroChoice(String heroChoice) {
+        this.heroChoice = heroChoice;
+    }
+
     public void generateLocalPlayer() {
-        localPlayer = new Warrior(generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
+        switch (heroChoice) {
+            default:
+            case "Warrior":
+                localPlayer = new Warrior(generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
+                break;
+            case "Archer":
+                localPlayer = new Archer(generateStartPosition(Constants.WINDOW_WIDTH, Constants.CHARACTER_IMG_WIDTH), generateStartPosition(Constants.WINDOW_HEIGHT, Constants.CHARACTER_IMG_HEIGHT), KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_Q, KeyEvent.VK_E);
+                break;
+        }
+
     }
 
     private static int generateStartPosition(int rangeBound, int tile) {

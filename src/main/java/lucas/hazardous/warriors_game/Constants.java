@@ -14,6 +14,8 @@ public class Constants {
 
     public static final HashMap<String, Color[]> ARENA_LIST = new HashMap<>();
 
+    public static final String[] HERO_LIST = new String[]{"Warrior", "Archer"};
+
     public static final String IMG_FOLDER = "images/";
 
     public static final int PLAYER_HEALTH = 200;

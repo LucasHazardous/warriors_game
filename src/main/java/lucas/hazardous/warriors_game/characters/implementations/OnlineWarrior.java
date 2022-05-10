@@ -14,7 +14,7 @@ public class OnlineWarrior implements Player {
 
     {
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(Constants.IMG_FOLDER + "archer/base.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(Constants.IMG_FOLDER + "online_enemy/base.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

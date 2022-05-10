@@ -10,6 +10,7 @@ public class Archer  extends LocalPlayer {
         super(x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
 
         this.playerClass = "archer";
+        this.setHealthPoints(100);
         try {
             this.setAttackImages();
         } catch (IOException e) {

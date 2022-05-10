@@ -10,6 +10,7 @@ public class Warrior extends LocalPlayer {
         super(x, y, leftKey, rightKey, upKey, downKey, leftAttackKey, rightAttackKey);
 
         this.playerClass = "warrior";
+        this.setHealthPoints(200);
        try {
            this.setAttackImages();
        } catch (IOException e) {
